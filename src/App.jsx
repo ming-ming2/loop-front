@@ -33,7 +33,7 @@ const App = () => {
 
   return (
     <React.StrictMode>
-      <BrowserRouter basename="/loop-front/">
+      <BrowserRouter basename="/loop-front">
         <ScrollToTop />
         <div className="min-h-screen bg-gray-50">
           {/* 인증 페이지에서는 Header와 Footer를 보여주지 않음 */}
