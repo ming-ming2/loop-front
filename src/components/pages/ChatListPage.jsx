@@ -8,7 +8,7 @@ const DUMMY_CHATS = [
     id: 1,
     userId: "user1",
     userName: "김철수",
-    userImage: "/api/placeholder/40/40",
+    userImage: "/loop-front/profile.png",
     skillTitle: "요가 교환 요청",
     lastMessage: "네, 내일 오후 3시에 가능해요!",
     timestamp: new Date(Date.now() - 1000 * 60 * 30), // 30분 전
@@ -20,7 +20,7 @@ const DUMMY_CHATS = [
     id: 2,
     userId: "user2",
     userName: "이영희",
-    userImage: "/api/placeholder/40/40",
+    userImage: "/loop-front/profile.png",
     skillTitle: "영어회화 교환",
     lastMessage: "수업은 어떠셨나요?",
     timestamp: new Date(Date.now() - 1000 * 60 * 60 * 2), // 2시간 전

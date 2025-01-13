@@ -165,7 +165,7 @@ const ExchangePage = () => {
                 <div className="flex gap-4">
                   <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0 bg-[#e6f7f4]">
                     <img
-                      src="/api/placeholder/64/64"
+                      src="/loop-front/profile.png"
                       alt="Profile"
                       className="w-full h-full object-cover"
                     />

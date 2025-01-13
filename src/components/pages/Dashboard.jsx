@@ -16,7 +16,7 @@ const Dashboard = () => {
   // 더미 데이터
   const userData = {
     name: "김서연",
-    profileImage: "/api/placeholder/80/80",
+    profileImage: "/loop-front/profile.png",
     rating: 4.8,
     reviewCount: 15,
     tt: {
@@ -45,7 +45,7 @@ const Dashboard = () => {
         title: "영어 회화 레슨 2시간",
         partner: {
           name: "이민준",
-          profileImage: "/api/placeholder/40/40",
+          profileImage: "/loop-front/profile.png",
         },
         status: "progress",
         requestDate: "2025-01-10",
@@ -58,7 +58,7 @@ const Dashboard = () => {
         title: "기타 레슨 1시간",
         partner: {
           name: "박지훈",
-          profileImage: "/api/placeholder/40/40",
+          profileImage: "/loop-front/profile.png",
         },
         completionDate: "2025-01-05",
         hasReview: true,

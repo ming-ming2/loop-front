@@ -30,7 +30,7 @@ const ExchangePage = () => {
         name: "김디자이너",
         rating: 5.0,
         reviews: 20,
-        image: "public/profile.png",
+        image: "/loop-front/profile.png",
         location: "서울 강남구",
       },
       providedSkills: ["UI/UX 디자인", "웹디자인", "모바일 디자인"],
@@ -49,7 +49,7 @@ const ExchangePage = () => {
     hires: 48,
     experience: "경력 20년",
     description: "고객을 위해 최선을 다하겠습니다",
-    profileImage: "public/profile.png",
+    profileImage: "/loop-front/profile.png",
   };
 
   const SelectionModal = ({ title, options, onClose }) => (
@@ -103,7 +103,7 @@ const ExchangePage = () => {
       <div className="flex items-start gap-4">
         <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
           <img
-            src="/Logo.png"
+            src="/loop-front/Logo.png"
             alt="Profile"
             className="w-full h-full object-cover"
           />
@@ -189,7 +189,7 @@ const ExchangePage = () => {
       <div className="flex gap-4">
         <div className="w-14 h-14 rounded-full overflow-hidden flex-shrink-0 bg-[#e6f7f4]">
           <img
-            src="public/profile.png"
+            src="/loop-front/profile.png"
             alt={exchange.user.name}
             className="w-full h-full object-cover"
           />

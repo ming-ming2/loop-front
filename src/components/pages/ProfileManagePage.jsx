@@ -44,7 +44,7 @@ const ProfileManagePage = () => {
     confirmNewPassword: "",
   });
 
-  const [profileImage, setProfileImage] = useState("public/profile.png");
+  const [profileImage, setProfileImage] = useState("/loop-front/profile.png");
   const [isEditing, setIsEditing] = useState(false);
   const [showPassword, setShowPassword] = useState({
     current: false,
