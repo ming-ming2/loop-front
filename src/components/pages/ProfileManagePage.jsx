@@ -253,7 +253,7 @@ const ProfileManagePage = () => {
   };
   return (
     <Layout>
-      <div className="min-h-screen pt-[var(--header-height)] pb-20 bg-gray-50">
+      <div className="min-h-screen pt-8 pb-20 bg-gray-50">
         <div className="max-w-2xl mx-auto px-4">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* 프로필 사진 섹션 */}
