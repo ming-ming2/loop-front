@@ -10,10 +10,11 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import Layout from "../Layout";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
-const Dashboard = () => {
+
+const MyPage = () => {
   const navigate = useNavigate();
 
-  // 더미 데이터
+  // 더미 데이터 (기존과 동일)
   const userData = {
     name: "김서연",
     profileImage: "/loop-front/profile.png",
@@ -154,6 +155,7 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
+
           {/* 스킬 정보 섹션 */}
           <div className="grid md:grid-cols-2 gap-6 mt-6">
             <div className="space-y-6">
@@ -233,48 +235,50 @@ const Dashboard = () => {
               {/* 스킬 통계 */}
               <div className="bg-white p-6 rounded-lg shadow-sm">
                 <h2 className="text-lg font-bold mb-6">스킬 통계</h2>
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* 원형 그래프 */}
-                  <div className="h-64">
+                  <div>
                     <p className="text-sm text-gray-500 mb-2">스킬 거래 비중</p>
-                    <ResponsiveContainer width="100%" height="100%">
-                      <PieChart>
-                        <Pie
-                          data={userData.skillStats.skillShare}
-                          cx="50%"
-                          cy="50%"
-                          innerRadius={60}
-                          outerRadius={80}
-                          paddingAngle={5}
-                          dataKey="value"
-                        >
-                          {userData.skillStats.skillShare.map(
-                            (entry, index) => (
-                              <Cell
-                                key={`cell-${index}`}
-                                fill={
-                                  index === 0
-                                    ? "#00d4b3"
-                                    : index === 1
-                                    ? "#00b298"
-                                    : "#e6f7f4"
-                                }
-                              />
-                            )
-                          )}
-                        </Pie>
-                        <Tooltip
-                          formatter={(value) => `${value}%`}
-                          contentStyle={{
-                            backgroundColor: "white",
-                            border: "none",
-                            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
-                            borderRadius: "8px",
-                          }}
-                        />
-                      </PieChart>
-                    </ResponsiveContainer>
-                    <div className="flex flex-wrap justify-center gap-4 mt-2">
+                    <div className="h-48">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <PieChart>
+                          <Pie
+                            data={userData.skillStats.skillShare}
+                            cx="50%"
+                            cy="50%"
+                            innerRadius={60}
+                            outerRadius={80}
+                            paddingAngle={5}
+                            dataKey="value"
+                          >
+                            {userData.skillStats.skillShare.map(
+                              (entry, index) => (
+                                <Cell
+                                  key={`cell-${index}`}
+                                  fill={
+                                    index === 0
+                                      ? "#00d4b3"
+                                      : index === 1
+                                      ? "#00b298"
+                                      : "#e6f7f4"
+                                  }
+                                />
+                              )
+                            )}
+                          </Pie>
+                          <Tooltip
+                            formatter={(value) => `${value}%`}
+                            contentStyle={{
+                              backgroundColor: "white",
+                              border: "none",
+                              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
+                              borderRadius: "8px",
+                            }}
+                          />
+                        </PieChart>
+                      </ResponsiveContainer>
+                    </div>
+                    <div className="flex flex-wrap justify-center gap-4 mt-4">
                       {userData.skillStats.skillShare.map((item, index) => (
                         <div
                           key={item.name}
@@ -344,6 +348,7 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
+
             <div className="space-y-6">
               {/* 거래 내역 섹션 */}
               <div className="bg-white p-6 rounded-lg shadow-sm">
@@ -534,4 +539,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default MyPage;

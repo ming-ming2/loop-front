@@ -8,7 +8,7 @@ import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
 import ForgotPassword from "./components/pages/ForgotPassword";
 import Support from "./components/pages/Support";
-import Dashboard from "./components/pages/Dashboard";
+import MyPage from "./components/pages/MyPage";
 import Skills from "./components/pages/Skills";
 import Reviews from "./components/pages/Reviews";
 import ProfilePage from "./components/pages/ProfilePage";
@@ -21,6 +21,7 @@ import AboutPage from "./components/pages/AboutPage";
 import CommunityWritePage from "./components/pages/CommunityWritePage";
 import ProfileManagePage from "./components/pages/ProfileManagePage";
 import { BrowserRouter } from "react-router-dom";
+import ChatRoom from "./components/pages/ChatRoom";
 import "./App.css";
 
 const App = () => {
@@ -43,7 +44,7 @@ const App = () => {
             <Route path="/register" element={<Register />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/support" element={<Support />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard" element={<MyPage />} />
             <Route path="/skills" element={<Skills />} />
             <Route path="/reviews" element={<Reviews />} />
             <Route path="/profile" element={<ProfilePage />} />
@@ -55,6 +56,7 @@ const App = () => {
             <Route path="/community" element={<CommunityPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/community/write" element={<CommunityWritePage />} />
+            <Route path="/chatroom" element={<ChatRoom />} />
 
             {/* 추후 추가될 라우트들 */}
             {/* <Route path="/exchange" element={<Exchange />} /> */}

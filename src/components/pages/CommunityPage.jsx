@@ -80,7 +80,7 @@ const CommunityPage = () => {
           "React와 Tailwind CSS를 활용하여 모던한 커뮤니티 페이지를 만드는 방법을 공유합니다.",
         user: {
           name: `사용자 ${page * 6 + index}`,
-          image: "/api/placeholder/40/40",
+          image: "/loop-front/profile.png",
           rating: 4.5,
           reviews: 15,
           location: "서울 강남구",

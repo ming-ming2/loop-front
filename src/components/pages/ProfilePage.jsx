@@ -1,5 +1,6 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+
 import {
   Star,
   MessageCircle,
@@ -12,7 +13,7 @@ import {
 } from "lucide-react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import Layout from "../Layout";
-
+import ChatRoom from "./ChatRoom";
 // 임시 데이터
 const userData = {
   name: "김서연",
@@ -508,15 +509,16 @@ const ProfilePage = () => {
           </div>
 
           {/* 메시지 보내기 버튼 (플로팅) */}
-          <button
-            className="fixed right-6 bottom-6 bg-[#00d4b3] text-white rounded-full shadow-lg hover:bg-[#00b298] hover:scale-105 transition-all p-4"
-            style={{
-              boxShadow: "0 4px 20px rgba(0, 212, 179, 0.3)",
-            }}
-          >
-            <MessageCircle className="w-6 h-6" />
-          </button>
-
+          <Link to="/chatroom">
+            <button
+              className="fixed right-6 bottom-6 bg-[#00d4b3] text-white rounded-full shadow-lg hover:bg-[#00b298] hover:scale-105 transition-all p-4"
+              style={{
+                boxShadow: "0 4px 20px rgba(0, 212, 179, 0.3)",
+              }}
+            >
+              <MessageCircle className="w-6 h-6" />
+            </button>
+          </Link>
           {/* 모바일 하단 여백 */}
           <div className="h-20" />
         </div>

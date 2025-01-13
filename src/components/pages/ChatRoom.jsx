@@ -1,159 +1,317 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useRef, useEffect } from "react";
 import {
-  ArrowLeft,
+  ChevronLeft,
   MoreVertical,
+  Star,
   Image as ImageIcon,
   Send,
   Smile,
-  DollarSign,
-  Star,
+  Clock,
   Check,
-  CheckCheck
-} from 'lucide-react';
-import Layout from '../Layout';
+  CheckCheck,
+  Paperclip,
+  Coins,
+} from "lucide-react";
 
-// 임시 데이터
-const chatData = {
-  partner: {
-    id: 1,
-    name: "김서연",
-    profileImage: "/api/placeholder/40/40",
-    rating: 4.8,
-    skill: "React 개발 멘토링",
-    status: "진행 중"
-  },
-  messages: [
+const ChatRoom = () => {
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState([
     {
       id: 1,
       type: "text",
-      content: "안녕하세요, React 멘토링 문의드립니다!",
-      sender: "other",
-      timestamp: "2025-01-12T14:30:00",
-      read: true
+      content: "안녕하세요! UI/UX 디자인 교환 관련해서 문의드립니다.",
+      sender: "me",
+      timestamp: "오후 2:30",
+      status: "read",
     },
     {
       id: 2,
       type: "text",
-      content: "네, 안녕하세요! 어떤 부분에 대해 도움이 필요하신가요?",
-      sender: "me",
-      timestamp: "2025-01-12T14:32:00",
-      read: true
+      content: "네, 안녕하세요! 어떤 부분이 궁금하신가요?",
+      sender: "other",
+      timestamp: "오후 2:31",
     },
     {
       id: 3,
-      type: "system",
-      content: "거래가 시작되었습니다.",
-      timestamp: "2025-01-12T14:35:00"
+      type: "text",
+      content: "제가 리액트 개발을 알려드리고, UI/UX 디자인을 배우고 싶습니다.",
+      sender: "me",
+      timestamp: "오후 2:32",
+      status: "read",
     },
     {
       id: 4,
-      type: "tt",
-      amount: 15000,
-      sender: "other",
-      timestamp: "2025-01-12T14:36:00",
-      read: true
+      type: "system",
+      content: "거래가 시작되었습니다.",
+      timestamp: "오후 2:33",
     },
     {
       id: 5,
-      type: "image",
-      content: "/api/placeholder/200/150",
+      type: "file",
+      content: "포트폴리오.pdf",
+      fileSize: "2.5MB",
       sender: "other",
-      timestamp: "2025-01-12T14:38:00",
-      read: true
-    }
-  ]
-};
+      timestamp: "오후 2:34",
+    },
+    {
+      id: 6,
+      type: "token",
+      content: "10 T.T 송금 완료",
+      sender: "me",
+      timestamp: "오후 2:35",
+      status: "read",
+    },
+  ]);
 
-const ChatRoom = () => {
-  const navigate = useNavigate();
-  const [message, setMessage] = useState('');
-  const [showImagePreview, setShowImagePreview] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
-  const messagesEndRef = useRef(null);
-  const fileInputRef = useRef(null);
-
-  // 스크롤을 항상 최하단으로 이동
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+  const chatContainerRef = useRef(null);
+  const [showDetailModal, setShowDetailModal] = useState(false);
 
   useEffect(() => {
-    scrollToBottom();
-  }, [chatData.messages]);
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
 
-  // 메시지 전송 핸들러
-  const handleSendMessage = () => {
-    if (!message.trim()) return;
-    
-    // TODO: 메시지 전송 로직
-    setMessage('');
-  };
-
-  // 키보드 이벤트 핸들러
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      handleSendMessage();
+  const handleSend = () => {
+    if (message.trim()) {
+      const newMessage = {
+        id: messages.length + 1,
+        type: "text",
+        content: message,
+        sender: "me",
+        timestamp: new Date().toLocaleTimeString("ko-KR", {
+          hour: "numeric",
+          minute: "numeric",
+          hour12: true,
+        }),
+        status: "sent",
+      };
+      setMessages([...messages, newMessage]);
+      setMessage("");
     }
   };
 
-  // 날짜 포맷팅 헬퍼 함수
-  const formatMessageDate = (timestamp) => {
-    const date = new Date(timestamp);
-    return date.toLocaleTimeString('ko-KR', {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: true
-    });
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
+    }
+  };
+
+  const DetailModal = () => (
+    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center px-4">
+      <div className="bg-white w-full max-w-md rounded-2xl p-6">
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-xl font-bold">거래 상세</h3>
+          <button onClick={() => setShowDetailModal(false)}>
+            <X className="w-6 h-6 text-gray-500" />
+          </button>
+        </div>
+
+        <div className="space-y-4">
+          <div>
+            <h4 className="text-sm text-gray-500 mb-1">거래 상태</h4>
+            <div className="flex items-center gap-2 text-[#00d4b3]">
+              <Clock className="w-5 h-5" />
+              <span className="font-medium">진행중</span>
+            </div>
+          </div>
+
+          <div>
+            <h4 className="text-sm text-gray-500 mb-1">제공 스킬</h4>
+            <p className="font-medium">UI/UX 디자인</p>
+          </div>
+
+          <div>
+            <h4 className="text-sm text-gray-500 mb-1">요청 스킬</h4>
+            <p className="font-medium">React 개발</p>
+          </div>
+
+          <div>
+            <h4 className="text-sm text-gray-500 mb-1">요청 일시</h4>
+            <p className="font-medium">2024년 1월 13일</p>
+          </div>
+        </div>
+
+        <div className="mt-6 flex gap-2">
+          <button
+            className="flex-1 py-2.5 border border-[#00d4b3] text-[#00d4b3] rounded-lg hover:bg-[#e6f7f4]"
+            onClick={() => setShowDetailModal(false)}
+          >
+            취소
+          </button>
+          <button className="flex-1 py-2.5 bg-[#00d4b3] text-white rounded-lg hover:bg-[#00b298]">
+            거래 완료
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+
+  const MessageBubble = ({ message }) => {
+    if (message.type === "system") {
+      return (
+        <div className="flex justify-center my-4">
+          <div className="bg-gray-100 text-gray-500 text-sm px-3 py-1 rounded-full">
+            {message.content}
+          </div>
+        </div>
+      );
+    }
+
+    const isMe = message.sender === "me";
+
+    return (
+      <div className={`flex gap-3 mb-4 ${isMe ? "flex-row-reverse" : ""}`}>
+        {!isMe && (
+          <div className="w-8 h-8 rounded-full bg-gray-200 flex-shrink-0 mt-1">
+            <img
+              src="/loop-front/profile.png"
+              alt="Profile"
+              className="w-full h-full rounded-full object-cover"
+            />
+          </div>
+        )}
+
+        <div className={`flex flex-col ${isMe ? "items-end" : "items-start"}`}>
+          {message.type === "text" && (
+            <div
+              className={`px-4 py-2 rounded-2xl max-w-xs break-words ${
+                isMe
+                  ? "bg-[#00d4b3] text-white"
+                  : "bg-white border border-gray-200"
+              }`}
+            >
+              {message.content}
+            </div>
+          )}
+
+          {message.type === "file" && (
+            <div className="bg-white border border-gray-200 rounded-xl p-3 flex items-center gap-3">
+              <div className="w-10 h-10 bg-[#e6f7f4] rounded-lg flex items-center justify-center">
+                <ImageIcon className="w-5 h-5 text-[#00d4b3]" />
+              </div>
+              <div>
+                <p className="font-medium text-sm">{message.content}</p>
+                <p className="text-gray-400 text-xs">{message.fileSize}</p>
+              </div>
+            </div>
+          )}
+
+          {message.type === "token" && (
+            <div className="bg-[#e6f7f4] text-[#00d4b3] px-4 py-2 rounded-2xl flex items-center gap-2">
+              <Coins className="w-4 h-4" />
+              {message.content}
+            </div>
+          )}
+
+          <div className="flex items-center gap-1 mt-1">
+            <span className="text-xs text-gray-400">{message.timestamp}</span>
+            {isMe && message.status && (
+              <span className="text-xs text-gray-400">
+                {message.status === "sent" && <Check className="w-3 h-3" />}
+                {message.status === "read" && (
+                  <CheckCheck className="w-3 h-3" />
+                )}
+              </span>
+            )}
+          </div>
+        </div>
+      </div>
+    );
   };
 
   return (
-    <Layout>
-      <div className="min-h-screen pt-[var(--header-height)] flex flex-col bg-gray-50">
-        {/* 채팅방 헤더 */}
-        <div className="fixed top-[var(--header-height)] left-0 right-0 bg-white border-b z-10">
-          <div className="max-w-3xl mx-auto px-4 py-3">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={() => navigate(-1)}
-                  className="p-2 hover:bg-gray-100 rounded-full"
-                >
-                  <ArrowLeft className="w-5 h-5" />
-                </button>
-                <div className="flex items-center gap-3">
-                  <img
-                    src={chatData.partner.profileImage}
-                    alt={chatData.partner.name}
-                    className="w-10 h-10 rounded-full"
-                  />
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="font-medium">
-                        {chatData.partner.name}
-                      </span>
-                      <div className="flex items-center gap-1 text-sm">
-                        <Star className="w-4 h-4 text-[#00d4b3] fill-current" />
-                        <span>{chatData.partner.rating}</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm">
-                      <span className="text-gray-600">
-                        {chatData.partner.skill}
-                      </span>
-                      <span className="text-[#00d4b3]">
-                        {chatData.partner.status}
-                      </span>
-                    </div>
+    <div className="h-screen bg-gray-50 flex flex-col pt-8">
+      {/* Header */}
+      <div className="fixed top-16 left-0 right-0 bg-white border-b z-20">
+        <div className="h-16 px-4 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <button className="p-2 hover:bg-gray-100 rounded-full">
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-gray-200">
+                <img
+                  src="/loop-front/profile.png"
+                  alt="Profile"
+                  className="w-full h-full rounded-full object-cover"
+                />
+              </div>
+              <div>
+                <div className="flex items-center gap-1">
+                  <h2 className="font-medium">김디자이너</h2>
+                  <div className="flex items-center gap-0.5">
+                    <Star className="w-4 h-4 text-[#00d4b3] fill-current" />
+                    <span className="text-sm">4.8</span>
                   </div>
                 </div>
+                <p className="text-sm text-gray-500">UI/UX 디자인 · 진행중</p>
               </div>
-              <button
-                className="p-2 hover:bg-gray-100 rounded-full"
-              >
-                <MoreVertical className="w-5 h-5" />
-              </button>
             </div>
           </div>
+          <button
+            onClick={() => setShowDetailModal(true)}
+            className="p-2 hover:bg-gray-100 rounded-full"
+          >
+            <MoreVertical className="w-5 h-5" />
+          </button>
         </div>
+      </div>
+
+      {/* Chat Container */}
+      <div
+        ref={chatContainerRef}
+        className="flex-1 overflow-y-auto px-4 py-6 mt-24"
+      >
+        <div className="max-w-3xl mx-auto">
+          {messages.map((msg) => (
+            <MessageBubble key={msg.id} message={msg} />
+          ))}
+        </div>
+      </div>
+
+      {/* Input Area */}
+      <div className="border-t bg-white">
+        <div className="max-w-3xl mx-auto px-4 py-3">
+          <div className="flex items-end gap-2">
+            <div className="flex-1 relative">
+              <textarea
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder="메시지를 입력하세요"
+                className="w-full bg-gray-100 rounded-2xl px-4 py-3 pr-12 resize-none focus:outline-none focus:ring-2 focus:ring-[#00d4b3] focus:bg-white transition-colors text-sm min-h-[46px] max-h-32"
+                style={{ height: "46px" }}
+              />
+              <div className="absolute right-3 bottom-2.5 flex items-center gap-2">
+                <button className="p-1 hover:bg-gray-200 rounded-full">
+                  <Smile className="w-5 h-5 text-gray-400" />
+                </button>
+                <button className="p-1 hover:bg-gray-200 rounded-full">
+                  <Paperclip className="w-5 h-5 text-gray-400" />
+                </button>
+                <button className="p-1 hover:bg-gray-200 rounded-full">
+                  <Coins className="w-5 h-5 text-gray-400" />
+                </button>
+              </div>
+            </div>
+            <button
+              onClick={handleSend}
+              disabled={!message.trim()}
+              className="p-2.5 bg-[#00d4b3] text-white rounded-xl hover:bg-[#00b298] disabled:opacity-50 disabled:hover:bg-[#00d4b3]"
+            >
+              <Send className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Modals */}
+      {showDetailModal && <DetailModal />}
+    </div>
+  );
+};
+
+export default ChatRoom;

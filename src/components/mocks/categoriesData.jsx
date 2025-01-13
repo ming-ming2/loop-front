@@ -294,7 +294,7 @@ const generateDummySkills = (count = 50) => {
       title: `${randomSkill} 전문 강사`,
       user: {
         name: `User${i + 1}`,
-        image: `/api/placeholder/48/48`,
+        image: `/loop-front/profile.png`,
         rating: ratings[Math.floor(Math.random() * ratings.length)],
         reviews: Math.floor(Math.random() * 200) + 1,
         location: locations[Math.floor(Math.random() * locations.length)],

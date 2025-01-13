@@ -186,7 +186,7 @@ const Header = () => {
                 onMouseDown={handleProfileClick}
               >
                 <img
-                  src="/profile.png"
+                  src="/loop-front/profile.png"
                   alt="Profile"
                   className="w-8 h-8 rounded-full"
                   draggable="false"
