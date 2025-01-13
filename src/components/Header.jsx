@@ -48,7 +48,7 @@ const ProfileDropdown = ({ isOpen, onClose }) => {
           <div className="flex items-center gap-3">
             <div className="relative">
               <img
-                src="public/profile.png"
+                src="/loop-front/profile.png"
                 alt="Profile"
                 className="w-14 h-14 rounded-full border-2 border-white"
                 draggable="false"
