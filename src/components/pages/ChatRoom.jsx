@@ -11,10 +11,14 @@ import {
   CheckCheck,
   Paperclip,
   Coins,
+  X,
 } from "lucide-react";
 
 const ChatRoom = () => {
   const [message, setMessage] = useState("");
+  const [showDetailModal, setShowDetailModal] = useState(false);
+  const chatContainerRef = useRef(null);
+
   const [messages, setMessages] = useState([
     {
       id: 1,
@@ -63,9 +67,6 @@ const ChatRoom = () => {
     },
   ]);
 
-  const chatContainerRef = useRef(null);
-  const [showDetailModal, setShowDetailModal] = useState(false);
-
   useEffect(() => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop =
@@ -98,56 +99,6 @@ const ChatRoom = () => {
       handleSend();
     }
   };
-
-  const DetailModal = () => (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center px-4">
-      <div className="bg-white w-full max-w-md rounded-2xl p-6">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-xl font-bold">거래 상세</h3>
-          <button onClick={() => setShowDetailModal(false)}>
-            <X className="w-6 h-6 text-gray-500" />
-          </button>
-        </div>
-
-        <div className="space-y-4">
-          <div>
-            <h4 className="text-sm text-gray-500 mb-1">거래 상태</h4>
-            <div className="flex items-center gap-2 text-[#00d4b3]">
-              <Clock className="w-5 h-5" />
-              <span className="font-medium">진행중</span>
-            </div>
-          </div>
-
-          <div>
-            <h4 className="text-sm text-gray-500 mb-1">제공 스킬</h4>
-            <p className="font-medium">UI/UX 디자인</p>
-          </div>
-
-          <div>
-            <h4 className="text-sm text-gray-500 mb-1">요청 스킬</h4>
-            <p className="font-medium">React 개발</p>
-          </div>
-
-          <div>
-            <h4 className="text-sm text-gray-500 mb-1">요청 일시</h4>
-            <p className="font-medium">2024년 1월 13일</p>
-          </div>
-        </div>
-
-        <div className="mt-6 flex gap-2">
-          <button
-            className="flex-1 py-2.5 border border-[#00d4b3] text-[#00d4b3] rounded-lg hover:bg-[#e6f7f4]"
-            onClick={() => setShowDetailModal(false)}
-          >
-            취소
-          </button>
-          <button className="flex-1 py-2.5 bg-[#00d4b3] text-white rounded-lg hover:bg-[#00b298]">
-            거래 완료
-          </button>
-        </div>
-      </div>
-    </div>
-  );
 
   const MessageBubble = ({ message }) => {
     if (message.type === "system") {
@@ -223,93 +174,143 @@ const ChatRoom = () => {
   };
 
   return (
-    <div className="h-screen bg-gray-50 flex flex-col pt-8">
-      {/* Header */}
-      <div className="fixed top-16 left-0 right-0 bg-white border-b z-20">
-        <div className="h-16 px-4 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <button className="p-2 hover:bg-gray-100 rounded-full">
-              <ChevronLeft className="w-5 h-5" />
-            </button>
+    <div className="min-h-screen bg-white">
+      <div className="max-w-3xl mx-auto relative min-h-screen">
+        {/* Header */}
+        <div className="fixed top-16 left-1/2 -translate-x-1/2 w-full max-w-3xl bg-white border-b z-20">
+          <div className="h-16 px-4 flex items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-gray-200">
-                <img
-                  src="/loop-front/profile.png"
-                  alt="Profile"
-                  className="w-full h-full rounded-full object-cover"
-                />
-              </div>
-              <div>
-                <div className="flex items-center gap-1">
-                  <h2 className="font-medium">김디자이너</h2>
-                  <div className="flex items-center gap-0.5">
-                    <Star className="w-4 h-4 text-[#00d4b3] fill-current" />
-                    <span className="text-sm">4.8</span>
-                  </div>
+              <button className="p-2 hover:bg-gray-100 rounded-full">
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-gray-200">
+                  <img
+                    src="/loop-front/profile.png"
+                    alt="Profile"
+                    className="w-full h-full rounded-full object-cover"
+                  />
                 </div>
-                <p className="text-sm text-gray-500">UI/UX 디자인 · 진행중</p>
-              </div>
-            </div>
-          </div>
-          <button
-            onClick={() => setShowDetailModal(true)}
-            className="p-2 hover:bg-gray-100 rounded-full"
-          >
-            <MoreVertical className="w-5 h-5" />
-          </button>
-        </div>
-      </div>
-
-      {/* Chat Container */}
-      <div
-        ref={chatContainerRef}
-        className="flex-1 overflow-y-auto px-4 py-6 mt-24"
-      >
-        <div className="max-w-3xl mx-auto">
-          {messages.map((msg) => (
-            <MessageBubble key={msg.id} message={msg} />
-          ))}
-        </div>
-      </div>
-
-      {/* Input Area */}
-      <div className="border-t bg-white">
-        <div className="max-w-3xl mx-auto px-4 py-3">
-          <div className="flex items-end gap-2">
-            <div className="flex-1 relative">
-              <textarea
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                onKeyPress={handleKeyPress}
-                placeholder="메시지를 입력하세요"
-                className="w-full bg-gray-100 rounded-2xl px-4 py-3 pr-12 resize-none focus:outline-none focus:ring-2 focus:ring-[#00d4b3] focus:bg-white transition-colors text-sm min-h-[46px] max-h-32"
-                style={{ height: "46px" }}
-              />
-              <div className="absolute right-3 bottom-2.5 flex items-center gap-2">
-                <button className="p-1 hover:bg-gray-200 rounded-full">
-                  <Smile className="w-5 h-5 text-gray-400" />
-                </button>
-                <button className="p-1 hover:bg-gray-200 rounded-full">
-                  <Paperclip className="w-5 h-5 text-gray-400" />
-                </button>
-                <button className="p-1 hover:bg-gray-200 rounded-full">
-                  <Coins className="w-5 h-5 text-gray-400" />
-                </button>
+                <div>
+                  <div className="flex items-center gap-1">
+                    <h2 className="font-medium">김디자이너</h2>
+                    <div className="flex items-center gap-0.5">
+                      <Star className="w-4 h-4 text-[#00d4b3] fill-current" />
+                      <span className="text-sm">4.8</span>
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-500">UI/UX 디자인 · 진행중</p>
+                </div>
               </div>
             </div>
             <button
-              onClick={handleSend}
-              disabled={!message.trim()}
-              className="p-2.5 bg-[#00d4b3] text-white rounded-xl hover:bg-[#00b298] disabled:opacity-50 disabled:hover:bg-[#00d4b3]"
+              onClick={() => setShowDetailModal(true)}
+              className="p-2 hover:bg-gray-100 rounded-full"
             >
-              <Send className="w-5 h-5" />
+              <MoreVertical className="w-5 h-5" />
             </button>
           </div>
         </div>
-      </div>
 
-      {/* Modals */}
-      {showDetailModal && <DetailModal />}
+        {/* Chat Container */}
+        <div
+          ref={chatContainerRef}
+          className="pt-32 pb-20 h-screen overflow-y-auto"
+        >
+          <div className="px-4">
+            {messages.map((msg) => (
+              <MessageBubble key={msg.id} message={msg} />
+            ))}
+          </div>
+        </div>
+
+        {/* Input Area */}
+        <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-3xl border-t bg-white">
+          <div className="px-4 py-3">
+            <div className="flex items-end gap-2">
+              <div className="flex-1 relative">
+                <textarea
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  placeholder="메시지를 입력하세요"
+                  className="w-full bg-gray-100 rounded-2xl px-4 py-3 pr-12 resize-none focus:outline-none focus:ring-2 focus:ring-[#00d4b3] focus:bg-white transition-colors text-sm min-h-[46px] max-h-32"
+                  style={{ height: "46px" }}
+                />
+                <div className="absolute right-3 bottom-2.5 flex items-center gap-2">
+                  <button className="p-1 hover:bg-gray-200 rounded-full">
+                    <Smile className="w-5 h-5 text-gray-400" />
+                  </button>
+                  <button className="p-1 hover:bg-gray-200 rounded-full">
+                    <Paperclip className="w-5 h-5 text-gray-400" />
+                  </button>
+                  <button className="p-1 hover:bg-gray-200 rounded-full">
+                    <Coins className="w-5 h-5 text-gray-400" />
+                  </button>
+                </div>
+              </div>
+              <button
+                onClick={handleSend}
+                disabled={!message.trim()}
+                className="p-2.5 bg-[#00d4b3] text-white rounded-xl hover:bg-[#00b298] disabled:opacity-50 disabled:hover:bg-[#00d4b3]"
+              >
+                <Send className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Detail Modal */}
+        {showDetailModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center px-4">
+            <div className="bg-white w-full max-w-md rounded-2xl p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-xl font-bold">거래 상세</h3>
+                <button onClick={() => setShowDetailModal(false)}>
+                  <X className="w-6 h-6 text-gray-500" />
+                </button>
+              </div>
+
+              <div className="space-y-4">
+                <div>
+                  <h4 className="text-sm text-gray-500 mb-1">거래 상태</h4>
+                  <div className="flex items-center gap-2 text-[#00d4b3]">
+                    <Clock className="w-5 h-5" />
+                    <span className="font-medium">진행중</span>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-sm text-gray-500 mb-1">제공 스킬</h4>
+                  <p className="font-medium">UI/UX 디자인</p>
+                </div>
+
+                <div>
+                  <h4 className="text-sm text-gray-500 mb-1">요청 스킬</h4>
+                  <p className="font-medium">React 개발</p>
+                </div>
+
+                <div>
+                  <h4 className="text-sm text-gray-500 mb-1">요청 일시</h4>
+                  <p className="font-medium">2024년 1월 13일</p>
+                </div>
+              </div>
+
+              <div className="mt-6 flex gap-2">
+                <button
+                  className="flex-1 py-2.5 border border-[#00d4b3] text-[#00d4b3] rounded-lg hover:bg-[#e6f7f4]"
+                  onClick={() => setShowDetailModal(false)}
+                >
+                  취소
+                </button>
+                <button className="flex-1 py-2.5 bg-[#00d4b3] text-white rounded-lg hover:bg-[#00b298]">
+                  거래 완료
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
