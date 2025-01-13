@@ -1,0 +1,220 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap");
+
+/* Base Colors */
+:root {
+  --color-mint-50: #e6f7f9;
+  --color-mint-100: #cceff3;
+  --color-mint-200: #99dfe7;
+  --color-mint-300: #66cfdb;
+  --color-mint-400: #33bfcf;
+  --color-mint-500: #00d4b3;
+  --color-mint-600: #00a890;
+  --color-mint-700: #007c6d;
+  --color-navy-900: #1a202c;
+  --header-height: 68px;
+}
+
+/* Base Styles */
+body {
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+}
+
+/* Custom Utility Classes */
+.bg-gradient-mint {
+  background: linear-gradient(
+    135deg,
+    var(--color-mint-500),
+    var(--color-mint-400)
+  );
+}
+
+.bg-gradient-light {
+  background: linear-gradient(135deg, #ffffff, var(--color-mint-50));
+}
+
+.text-gradient {
+  background: linear-gradient(
+    135deg,
+    var(--color-mint-600),
+    var(--color-mint-400)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Animations */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.6s ease-out forwards;
+}
+
+/* Custom Components */
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 212, 179, 0.1);
+}
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+}
+
+/* Custom Colors */
+.bg-mint-50 {
+  background-color: var(--color-mint-50);
+}
+.bg-mint-100 {
+  background-color: var(--color-mint-100);
+}
+
+.bg-mint-200 {
+  background-color: var(--color-mint-100);
+}
+
+.bg-mint-500 {
+  background-color: var(--color-mint-500);
+}
+.bg-mint-600 {
+  background-color: var(--color-mint-600);
+}
+
+.text-mint-500 {
+  color: var(--color-mint-500);
+}
+.text-mint-600 {
+  color: var(--color-mint-600);
+}
+
+.border-mint-500 {
+  border-color: var(--color-mint-500);
+}
+
+.hover\:bg-mint-600:hover {
+  background-color: var(--color-mint-600);
+}
+.hover\:text-mint-500:hover {
+  color: var(--color-mint-500);
+}
+
+.focus\:ring-mint-500:focus {
+  --tw-ring-color: var(--color-mint-500);
+}
+
+/* Scroll Behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slideDown {
+  animation: slideDown 0.2s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes typeIn {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #00d4b3, #00b298);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hover-scale {
+  transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.2s ease-out forwards;
+}
