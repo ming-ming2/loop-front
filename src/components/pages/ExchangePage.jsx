@@ -30,7 +30,7 @@ const ExchangePage = () => {
         name: "김디자이너",
         rating: 5.0,
         reviews: 20,
-        image: "/api/placeholder/56/56",
+        image: "public/profile.png",
         location: "서울 강남구",
       },
       providedSkills: ["UI/UX 디자인", "웹디자인", "모바일 디자인"],
@@ -49,7 +49,7 @@ const ExchangePage = () => {
     hires: 48,
     experience: "경력 20년",
     description: "고객을 위해 최선을 다하겠습니다",
-    profileImage: "/api/placeholder/64/64",
+    profileImage: "public/profile.png",
   };
 
   const SelectionModal = ({ title, options, onClose }) => (
