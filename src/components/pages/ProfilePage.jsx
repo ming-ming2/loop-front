@@ -16,7 +16,7 @@ import Layout from "../Layout";
 // 임시 데이터
 const userData = {
   name: "김서연",
-  profileImage: "/profile.png",
+  profileImage: "public/profile.png",
   shortBio: "여행을 좋아하는 개발자, 사람들과 연결되는 걸 좋아합니다.",
   tags: [
     { name: "React", color: "#E8F5FF" },
