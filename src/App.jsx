@@ -20,6 +20,7 @@ import CommunityPage from "./components/pages/CommunityPage";
 import AboutPage from "./components/pages/AboutPage";
 import CommunityWritePage from "./components/pages/CommunityWritePage";
 import ProfileManagePage from "./components/pages/ProfileManagePage";
+import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 
 const App = () => {
@@ -30,38 +31,42 @@ const App = () => {
   };
 
   return (
-    <Router>
-      <ScrollToTop />
-      <div className="min-h-screen bg-gray-50">
-        {/* 인증 페이지에서는 Header와 Footer를 보여주지 않음 */}
-        {!isAuthRoute(window.location.pathname) && <Header />}
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/support" element={<Support />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/skills" element={<Skills />} />
-          <Route path="/reviews" element={<Reviews />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/profile-manage" element={<ProfileManagePage />} />
-          <Route path="/exchange" element={<ExchangePage />} />
-          <Route path="/map" element={<MapView />} />
-          <Route path="/categories" element={<CategoriesPage />} />
-          <Route path="/chats" element={<ChatListPage />} />
-          <Route path="/community" element={<CommunityPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/community/write" element={<CommunityWritePage />} />
+    <React.StrictMode>
+      <BrowserRouter basename="/loop-front">
+        <Router>
+          <ScrollToTop />
+          <div className="min-h-screen bg-gray-50">
+            {/* 인증 페이지에서는 Header와 Footer를 보여주지 않음 */}
+            {!isAuthRoute(window.location.pathname) && <Header />}
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/support" element={<Support />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/skills" element={<Skills />} />
+              <Route path="/reviews" element={<Reviews />} />
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/profile-manage" element={<ProfileManagePage />} />
+              <Route path="/exchange" element={<ExchangePage />} />
+              <Route path="/map" element={<MapView />} />
+              <Route path="/categories" element={<CategoriesPage />} />
+              <Route path="/chats" element={<ChatListPage />} />
+              <Route path="/community" element={<CommunityPage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/community/write" element={<CommunityWritePage />} />
 
-          {/* 추후 추가될 라우트들 */}
-          {/* <Route path="/exchange" element={<Exchange />} /> */}
-          {/* <Route path="/reviews" element={<Reviews />} /> */}
-          {/* <Route path="/community" element={<Community />} /> */}
-        </Routes>
-        {!isAuthRoute(window.location.pathname) && <Footer />}
-      </div>
-    </Router>
+              {/* 추후 추가될 라우트들 */}
+              {/* <Route path="/exchange" element={<Exchange />} /> */}
+              {/* <Route path="/reviews" element={<Reviews />} /> */}
+              {/* <Route path="/community" element={<Community />} /> */}
+            </Routes>
+            {!isAuthRoute(window.location.pathname) && <Footer />}
+          </div>
+        </Router>
+      </BrowserRouter>
+    </React.StrictMode>
   );
 };
 
