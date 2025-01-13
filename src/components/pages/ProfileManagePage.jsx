@@ -255,8 +255,6 @@ const ProfileManagePage = () => {
     <Layout>
       <div className="min-h-screen pt-[var(--header-height)] pb-20 bg-gray-50">
         <div className="max-w-2xl mx-auto px-4">
-          <h1 className="text-2xl font-bold mb-6">프로필 관리</h1>
-
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* 프로필 사진 섹션 */}
             <div className="bg-white p-6 rounded-lg shadow-sm">
